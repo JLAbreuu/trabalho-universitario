@@ -1,0 +1,43 @@
+{
+  "name": "trabalho-universitario",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@appletosolutions/reactbits": "^1.0.3",
+    "@chakra-ui/react": "^3.35.0",
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
+    "@react-three/drei": "^9.105.6",
+    "@react-three/fiber": "^8.16.1",
+    "@react-three/postprocessing": "^3.0.4",
+    "@types/aos": "^3.0.7",
+    "@types/three": "^0.164.0",
+    "animate.css": "^4.1.1",
+    "aos": "^2.3.4",
+    "framer-motion": "^12.38.0",
+    "gl-matrix": "^3.4.4",
+    "gsap": "^3.15.0",
+    "lucide-react": "^1.11.0",
+    "matter-js": "^0.20.0",
+    "next": "^14.2.0",
+    "ogl": "^1.0.11",
+    "pdf-parse": "^2.4.5",
+    "postprocessing": "^6.39.1",
+    "react": "^18",
+    "react-dom": "^18",
+    "three": "^0.164.0",
+    "three-stdlib": "^2.36.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "typescript": "^5"
+  }
+}
