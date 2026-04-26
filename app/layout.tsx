@@ -7,6 +7,8 @@ export const metadata = {
   description: "Uma análise profunda sobre a crise do saneamento básico, focada em gestão fiscal, externalidades negativas e o Novo Marco Legal.",
 };
 
+import { AccessibilityProvider } from "@/components/AccessibilityProvider";
+
 export default function RootLayout({
   children,
 }: {
@@ -14,7 +16,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-BR">
-      <body>{children}</body>
+      <body>
+        <AccessibilityProvider>
+          {children}
+        </AccessibilityProvider>
+      </body>
     </html>
   );
 }
+
+
