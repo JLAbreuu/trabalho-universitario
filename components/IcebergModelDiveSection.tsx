@@ -115,12 +115,14 @@ export function IcebergModelDiveSection() {
                   gap: '1.5rem', 
                   padding: '2rem',
                   alignItems: 'flex-start',
-                  borderLeft: `4px solid ${layer.color}`
-                }}
+                  borderLeft: `4px solid ${layer.color}`,
+                  '--hover-bg': `${layer.color}10`,
+                  '--hover-border': `${layer.color}40`
+                } as React.CSSProperties}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1, type: "spring", stiffness: 100 }}
-                whileHover={{ x: 10, backgroundColor: 'rgba(255,255,255,0.05)' }}
+                whileHover={{ x: 10, scale: 1.01 }}
               >
                 <div style={{ 
                   padding: '1rem', 

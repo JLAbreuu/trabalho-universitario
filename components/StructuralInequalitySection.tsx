@@ -80,8 +80,10 @@ export function StructuralInequalitySection() {
               className="glass-card"
               style={{ 
                 padding: '3rem',
-                borderLeft: `4px solid ${card.accentColor}`
-              }}
+                borderLeft: `4px solid ${card.accentColor}`,
+                '--hover-bg': `${card.accentColor}10`,
+                '--hover-border': `${card.accentColor}40`
+              } as React.CSSProperties}
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ delay: index * 0.1, duration: 0.6 }}

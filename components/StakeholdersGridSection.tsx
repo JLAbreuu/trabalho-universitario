@@ -90,7 +90,14 @@ export function StakeholdersGridSection() {
             <motion.div
               key={s.id}
               className="glass-card"
-              style={{ padding: '2.5rem', display: 'flex', flexDirection: 'column', gap: '1.5rem' }}
+              style={{ 
+                padding: '2.5rem', 
+                display: 'flex', 
+                flexDirection: 'column', 
+                gap: '1.5rem',
+                '--hover-bg': `${s.color}10`,
+                '--hover-border': `${s.color}40`
+              } as React.CSSProperties}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.05, duration: 0.5 }}

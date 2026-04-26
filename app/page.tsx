@@ -37,14 +37,32 @@ export default function Home() {
       <HeroSection />
       <SanitationIcebergHero />
       <LayeredJourneySection />
-      <VisibleProblemSection />
-      <StructuralInequalitySection />
+      
+      <div id="problema-visivel">
+        <VisibleProblemSection />
+      </div>
+      
+      <div id="desigualdade-estrutural">
+        <StructuralInequalitySection />
+      </div>
+      
       <ExternalitiesSection />
-      <NashEquilibriumSection />
-      <IcebergModelDiveSection />
+      
+      <div id="como-o-sistema-funciona">
+        <NashEquilibriumSection />
+      </div>
+      
+      <div id="causas-raiz">
+        <IcebergModelDiveSection />
+      </div>
+      
       <NewLegalFrameworkSection />
       <StakeholdersGridSection />
-      <EsgAgendaSection />
+      
+      <div id="solucoes-sistemicas">
+        <EsgAgendaSection />
+      </div>
+      
       <SystemicLoopsSection />
       <ManifestoOutroSection />
       <AcademicFooterSection />

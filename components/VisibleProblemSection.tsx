@@ -51,11 +51,11 @@ const dataCards: DataCard[] = [
 ];
 
 const regionData: RegionData[] = [
-  { region: "Sudeste", percentage: 82, color: "#059669" },
-  { region: "Sul", percentage: 72, color: "#0891b2" },
-  { region: "Centro-Oeste", percentage: 58, color: "#eab308" },
-  { region: "Nordeste", percentage: 38, color: "#b45309" },
-  { region: "Norte", percentage: 18, color: "#dc2626" },
+  { region: "Sudeste", percentage: 82, color: "#EAB308" }, // Yellow
+  { region: "Sul", percentage: 72, color: "#9395D3" },     // Purple/Lavender
+  { region: "Centro-Oeste", percentage: 58, color: "#FF8C42" }, // Orange
+  { region: "Nordeste", percentage: 38, color: "#FF0000" },    // Red
+  { region: "Norte", percentage: 18, color: "#3D8E6A" },       // Green
 ];
 
 export function VisibleProblemSection() {
@@ -148,25 +148,27 @@ export function VisibleProblemSection() {
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
-                gap: '1rem'
-              }}
+                gap: '1rem',
+                '--hover-bg': `${card.iconColor}10`,
+                '--hover-border': `${card.iconColor}40`
+              } as React.CSSProperties}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1, duration: 0.6 }}
               whileHover={{ scale: 1.02, y: -5 }}
               whileTap={{ scale: 0.98 }}
             >
-              <div style={{ 
-                width: '56px',
-                height: '56px',
-                borderRadius: '16px',
-                backgroundColor: `${card.iconColor}15`,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                color: card.iconColor,
-                marginBottom: '1rem'
-              }}>
+              <div 
+                className="liquid-glass-icon"
+                style={{ 
+                  width: '56px',
+                  height: '56px',
+                  borderRadius: '16px',
+                  color: card.iconColor,
+                  marginBottom: '1rem',
+                  backgroundColor: `${card.iconColor}20`,
+                }}
+              >
                 {card.icon}
               </div>
 
@@ -220,7 +222,7 @@ export function VisibleProblemSection() {
                   fontWeight: 600
                 }}>
                   <span>{region.region}</span>
-                  <span style={{ color: 'var(--accent)' }}>{region.percentage}%</span>
+                  <span style={{ color: region.color }}>{region.percentage}%</span>
                 </div>
 
                 <div style={{ 
@@ -233,7 +235,7 @@ export function VisibleProblemSection() {
                     className="chart-bar-fill"
                     data-width={`${region.percentage}%`}
                     style={{
-                      backgroundColor: region.percentage > 50 ? 'var(--accent)' : 'var(--foreground-muted)',
+                      backgroundColor: region.color,
                       height: '100%',
                       width: "0%",
                       borderRadius: '4px'

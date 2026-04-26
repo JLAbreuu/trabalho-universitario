@@ -72,7 +72,11 @@ export function NashEquilibriumSection() {
             {/* Município A - Rio Abaixo */}
             <motion.div 
               className="glass-card"
-              style={{ padding: '2.5rem' }}
+              style={{ 
+                padding: '2.5rem',
+                '--hover-bg': 'rgba(255, 59, 48, 0.08)',
+                '--hover-border': 'rgba(255, 59, 48, 0.3)'
+              } as React.CSSProperties}
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
@@ -84,12 +88,15 @@ export function NashEquilibriumSection() {
                   <div style={{ fontSize: '0.75rem', textTransform: 'uppercase', color: 'var(--foreground-muted)', marginBottom: '0.5rem' }}>Decisão</div>
                   <div style={{ fontWeight: 600 }}>Investe em tratamento</div>
                 </div>
-                <div style={{ 
-                  padding: '1rem', 
-                  backgroundColor: 'rgba(255, 59, 48, 0.15)', 
-                  borderRadius: '12px',
-                  border: '1px solid rgba(255, 59, 48, 0.1)'
-                }}>
+                <div 
+                  className="liquid-glass"
+                  style={{ 
+                    padding: '1rem', 
+                    backgroundColor: 'rgba(255, 59, 48, 0.12)', 
+                    borderRadius: '12px',
+                    border: '1px solid rgba(255, 59, 48, 0.2)'
+                  }}
+                >
                   <div style={{ fontSize: '0.75rem', textTransform: 'uppercase', color: '#ff3b30', marginBottom: '0.25rem' }}>Resultado</div>
                   <div style={{ fontWeight: 600, color: '#ff3b30' }}>Prejuízo sem contrapartida</div>
                 </div>
@@ -103,14 +110,18 @@ export function NashEquilibriumSection() {
             <div style={{ 
               fontSize: '1.5rem', 
               fontWeight: 800, 
-              color: 'var(--foreground-muted)',
+              color: '#fff',
               opacity: 0.3
             }}>VS</div>
 
             {/* Município B - Rio Acima */}
             <motion.div 
               className="glass-card"
-              style={{ padding: '2.5rem' }}
+              style={{ 
+                padding: '2.5rem',
+                '--hover-bg': 'rgba(52, 199, 89, 0.08)',
+                '--hover-border': 'rgba(52, 199, 89, 0.3)'
+              } as React.CSSProperties}
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
@@ -122,12 +133,15 @@ export function NashEquilibriumSection() {
                   <div style={{ fontSize: '0.75rem', textTransform: 'uppercase', color: 'var(--foreground-muted)', marginBottom: '0.5rem' }}>Decisão</div>
                   <div style={{ fontWeight: 600 }}>Não investe — despeja esgoto</div>
                 </div>
-                <div style={{ 
-                  padding: '1rem', 
-                  backgroundColor: 'rgba(52, 199, 89, 0.15)', 
-                  borderRadius: '12px',
-                  border: '1px solid rgba(52, 199, 89, 0.1)'
-                }}>
+                <div 
+                  className="liquid-glass"
+                  style={{ 
+                    padding: '1rem', 
+                    backgroundColor: 'rgba(52, 199, 89, 0.12)', 
+                    borderRadius: '12px',
+                    border: '1px solid rgba(52, 199, 89, 0.2)'
+                  }}
+                >
                   <div style={{ fontSize: '0.75rem', textTransform: 'uppercase', color: '#34c759', marginBottom: '0.25rem' }}>Resultado</div>
                   <div style={{ fontWeight: 600, color: '#34c759' }}>Lucro privado, custo social</div>
                 </div>
@@ -152,17 +166,17 @@ export function NashEquilibriumSection() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4, duration: 0.6 }}
         >
-          <div style={{ 
-            width: '48px', 
-            height: '48px', 
-            borderRadius: '12px', 
-            backgroundColor: 'rgba(255, 204, 0, 0.15)', 
-            display: 'flex', 
-            alignItems: 'center', 
-            justifyContent: 'center',
-            color: '#FFCC00',
-            flexShrink: 0
-          }}>
+          <div 
+            className="liquid-glass-icon"
+            style={{ 
+              width: '48px', 
+              height: '48px', 
+              borderRadius: '12px', 
+              backgroundColor: 'rgba(255, 204, 0, 0.2)', 
+              color: '#FFCC00',
+              flexShrink: 0
+            }}
+          >
             <Lightbulb size={24} />
           </div>
           <div style={{ lineHeight: 1.6 }}>

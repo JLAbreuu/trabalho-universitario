@@ -75,8 +75,10 @@ export function SystemicLoopsSection() {
                 display: 'flex',
                 gap: '2.5rem',
                 padding: '2.5rem',
-                alignItems: 'center'
-              }}
+                alignItems: 'center',
+                '--hover-bg': `${loop.color}10`,
+                '--hover-border': `${loop.color}40`
+              } as React.CSSProperties}
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ delay: index * 0.1, duration: 0.6 }}

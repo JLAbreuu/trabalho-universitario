@@ -1,5 +1,6 @@
 "use client";
 
+import { cloneElement } from "react";
 import { motion } from "framer-motion";
 import { Globe, Lightbulb, Check, ShieldCheck, Users, TreePine, Gavel } from 'lucide-react';
 
@@ -59,7 +60,11 @@ export function EsgAgendaSection() {
             <motion.div 
               key={pillar.letter}
               className="glass-card"
-              style={{ padding: '2.5rem' }}
+              style={{ 
+                padding: '2.5rem',
+                '--hover-bg': `${pillar.color}10`,
+                '--hover-border': `${pillar.color}40`
+              } as React.CSSProperties}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: idx * 0.1, duration: 0.6 }}
@@ -72,22 +77,35 @@ export function EsgAgendaSection() {
                 gap: '1rem',
                 marginBottom: '2rem'
               }}>
-                <div style={{ 
-                  width: '50px', 
-                  height: '50px', 
-                  borderRadius: '14px', 
-                  backgroundColor: `${pillar.color}15`, 
-                  color: pillar.color,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontSize: '1.5rem',
-                  fontWeight: 800
-                }}>
+                <div 
+                  className="liquid-glass-icon"
+                  style={{ 
+                    width: '50px', 
+                    height: '50px', 
+                    borderRadius: '14px', 
+                    backgroundColor: `${pillar.color}20`, 
+                    color: pillar.color,
+                    fontSize: '1.5rem',
+                    fontWeight: 800
+                  }}
+                >
                   {pillar.letter}
                 </div>
                 <div>
                   <h3 style={{ margin: 0, fontSize: '1.25rem' }}>{pillar.title}</h3>
+                </div>
+
+                {/* Background Icon Watermark */}
+                <div style={{
+                  position: 'absolute',
+                  top: '1rem',
+                  right: '1rem',
+                  opacity: 0.08,
+                  transform: 'rotate(-10deg)',
+                  color: pillar.color,
+                  pointerEvents: 'none'
+                }}>
+                  {cloneElement(pillar.icon as React.ReactElement, { size: 100 })}
                 </div>
               </div>
 

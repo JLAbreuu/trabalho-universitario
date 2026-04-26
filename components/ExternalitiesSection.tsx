@@ -104,8 +104,10 @@ export function ExternalitiesSection() {
                 display: 'flex',
                 flexDirection: 'column',
                 gap: '1.5rem',
-                borderTop: `4px solid ${failure.accentColor}`
-              }}
+                borderTop: `4px solid ${failure.accentColor}`,
+                '--hover-bg': `${failure.accentColor}10`,
+                '--hover-border': `${failure.accentColor}40`
+              } as React.CSSProperties}
               initial={{ opacity: 0, x: 50 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ delay: index * 0.1, duration: 0.6 }}
