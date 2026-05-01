@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { CheckCircle2, AlertTriangle, ArrowRight, X, ShieldCheck } from 'lucide-react';
+import { LiquidGlassCard } from "../ui/LiquidGlassCard";
 
 export function NewLegalFrameworkSection() {
   const proposals = [
@@ -43,25 +44,27 @@ export function NewLegalFrameworkSection() {
           alignItems: 'start'
         }}>
           {/* Opportunities Column */}
-          <motion.div 
-            className="glass-card"
-            style={{ padding: '3rem' }}
+          <LiquidGlassCard
+            accentColor="#34c759"
+            interactive={true}
+            style={{ 
+              padding: '3rem',
+            } as React.CSSProperties}
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
-            whileHover={{ scale: 1.01 }}
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '2.5rem' }}>
-              <div style={{ 
-                width: '48px', 
-                height: '48px', 
-                borderRadius: '12px', 
-                backgroundColor: 'rgba(52, 199, 89, 0.15)', 
-                display: 'flex', 
-                alignItems: 'center', 
-                justifyContent: 'center',
-                color: '#34c759'
-              }}>
+              <div 
+                className="liquid-glass-icon"
+                style={{ 
+                  width: '48px', 
+                  height: '48px', 
+                  borderRadius: '12px', 
+                  backgroundColor: 'rgba(52, 199, 89, 0.2)', 
+                  color: '#34c759'
+                }}
+              >
                 <CheckCircle2 size={24} />
               </div>
               <h3 style={{ fontSize: '1.5rem', fontWeight: 700, margin: 0 }}>O que a lei propõe</h3>
@@ -78,28 +81,30 @@ export function NewLegalFrameworkSection() {
                 </div>
               ))}
             </div>
-          </motion.div>
+          </LiquidGlassCard>
 
           {/* Risks Column */}
-          <motion.div 
-            className="glass-card"
-            style={{ padding: '3rem' }}
+          <LiquidGlassCard
+            accentColor="#ff9500"
+            interactive={true}
+            style={{ 
+              padding: '3rem',
+            } as React.CSSProperties}
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
-            whileHover={{ scale: 1.01 }}
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '2.5rem' }}>
-              <div style={{ 
-                width: '48px', 
-                height: '48px', 
-                borderRadius: '12px', 
-                backgroundColor: 'rgba(255, 149, 0, 0.15)', 
-                display: 'flex', 
-                alignItems: 'center', 
-                justifyContent: 'center',
-                color: '#ff9500'
-              }}>
+              <div 
+                className="liquid-glass-icon"
+                style={{ 
+                  width: '48px', 
+                  height: '48px', 
+                  borderRadius: '12px', 
+                  backgroundColor: 'rgba(255, 149, 0, 0.2)', 
+                  color: '#ff9500'
+                }}
+              >
                 <AlertTriangle size={24} />
               </div>
               <h3 style={{ fontSize: '1.5rem', fontWeight: 700, margin: 0 }}>Riscos e desafios</h3>
@@ -116,7 +121,7 @@ export function NewLegalFrameworkSection() {
                 </div>
               ))}
             </div>
-          </motion.div>
+          </LiquidGlassCard>
         </div>
       </div>
     </section>
