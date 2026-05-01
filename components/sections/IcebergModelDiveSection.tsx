@@ -5,6 +5,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowDown, Layers, Activity, Database, Brain } from 'lucide-react';
+import { LiquidGlassCard } from "../ui/LiquidGlassCard";
 
 const icebergLayers = [
   {
@@ -107,22 +108,19 @@ export function IcebergModelDiveSection() {
           {/* The Cards Stack */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem', maxWidth: '800px' }}>
             {icebergLayers.map((layer, index) => (
-              <motion.div 
+              <LiquidGlassCard 
                 key={layer.id}
-                className="glass-card"
+                accentColor={layer.color}
+                interactive={true}
                 style={{ 
                   display: 'flex', 
                   gap: '1.5rem', 
                   padding: '2rem',
                   alignItems: 'flex-start',
-                  borderLeft: `4px solid ${layer.color}`,
-                  '--hover-bg': `${layer.color}10`,
-                  '--hover-border': `${layer.color}40`
                 } as React.CSSProperties}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1, type: "spring", stiffness: 100 }}
-                whileHover={{ x: 10, scale: 1.01 }}
               >
                 <div style={{ 
                   padding: '1rem', 
@@ -138,20 +136,19 @@ export function IcebergModelDiveSection() {
                   </h3>
                   <p style={{ color: 'var(--foreground-muted)', lineHeight: 1.6 }}>{layer.description}</p>
                 </div>
-              </motion.div>
+              </LiquidGlassCard>
             ))}
           </div>
 
           {/* Final Insight Block */}
-          <motion.div 
-            className="glass-card"
+          <LiquidGlassCard 
+            accentColor="#0071e3"
+            interactive={false}
             style={{ 
               marginTop: '4rem', 
               padding: '2.5rem', 
               textAlign: 'center', 
               maxWidth: '800px',
-              border: '1px solid var(--accent)',
-              backgroundColor: 'rgba(0, 113, 227, 0.05)'
             }}
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
@@ -160,7 +157,7 @@ export function IcebergModelDiveSection() {
             <p style={{ fontSize: '1.25rem', fontWeight: 500, fontStyle: 'italic' }}>
               "A pergunta certa não é <span style={{ color: 'var(--accent)', fontWeight: 700 }}>'por que não há dinheiro?'</span> — é 'por que os incentivos não alinham quem decide com quem paga o custo?'"
             </p>
-          </motion.div>
+          </LiquidGlassCard>
         </div>
       </div>
     </section>

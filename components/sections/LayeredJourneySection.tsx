@@ -5,6 +5,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ChevronDown } from "lucide-react";
+import { LiquidGlassCard } from "../ui/LiquidGlassCard";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -108,10 +109,12 @@ export function LayeredJourneySection() {
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '3rem' }}>
             {journeyCards.map((card, index) => (
-              <motion.div
+              <LiquidGlassCard
                 key={card.id}
                 onClick={() => scrollToSection(card.targetId)}
-                className="glass-card spring-hover"
+                accentColor={card.accentColor}
+                interactive={true}
+                className="spring-hover"
                 style={{ 
                   marginLeft: '50px',
                   padding: '2rem',
@@ -120,14 +123,10 @@ export function LayeredJourneySection() {
                   gap: '1.5rem',
                   cursor: 'pointer',
                   position: 'relative',
-                  '--hover-bg': `${card.accentColor}10`,
-                  '--hover-border': `${card.accentColor}40`
                 } as React.CSSProperties}
                 initial={{ opacity: 0, x: 20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ delay: index * 0.1, duration: 0.6 }}
-                whileHover={{ x: 10, scale: 1.01 }}
-                whileTap={{ scale: 0.98 }}
               >
                 {/* Node indicator (Bolinha Lateral) - Alinhada com a linha do tempo */}
                 <div style={{ 
@@ -162,7 +161,7 @@ export function LayeredJourneySection() {
                 </div>
 
                 <ChevronDown size={20} style={{ transform: 'rotate(-90deg)', opacity: 0.8, color: card.accentColor }} />
-              </motion.div>
+              </LiquidGlassCard>
             ))}
           </div>
         </div>

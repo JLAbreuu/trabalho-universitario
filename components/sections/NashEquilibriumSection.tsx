@@ -5,6 +5,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Lightbulb, Info } from 'lucide-react';
+import { LiquidGlassCard } from "../ui/LiquidGlassCard";
 
 export function NashEquilibriumSection() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -70,17 +71,15 @@ export function NashEquilibriumSection() {
             margin: '0 auto'
           }}>
             {/* Município A - Rio Abaixo */}
-            <motion.div 
-              className="glass-card"
+            <LiquidGlassCard 
+              accentColor="#ff3b30"
+              interactive={true}
               style={{ 
                 padding: '2.5rem',
-                '--hover-bg': 'rgba(255, 59, 48, 0.08)',
-                '--hover-border': 'rgba(255, 59, 48, 0.3)'
               } as React.CSSProperties}
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
-              whileHover={{ scale: 1.02 }}
             >
               <h3 style={{ fontSize: '1.1rem', color: 'var(--accent)', marginBottom: '1.5rem', fontWeight: 600 }}>Município A (rio abaixo)</h3>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
@@ -105,7 +104,7 @@ export function NashEquilibriumSection() {
                 <Info size={14} style={{ flexShrink: 0, marginTop: '2px', color: '#007AFF' }} />
                 <span>O rio chega poluído por B independentemente de A investir.</span>
               </div>
-            </motion.div>
+            </LiquidGlassCard>
 
             <div style={{ 
               fontSize: '1.5rem', 
@@ -115,17 +114,15 @@ export function NashEquilibriumSection() {
             }}>VS</div>
 
             {/* Município B - Rio Acima */}
-            <motion.div 
-              className="glass-card"
+            <LiquidGlassCard 
+              accentColor="#34c759"
+              interactive={true}
               style={{ 
                 padding: '2.5rem',
-                '--hover-bg': 'rgba(52, 199, 89, 0.08)',
-                '--hover-border': 'rgba(52, 199, 89, 0.3)'
               } as React.CSSProperties}
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
-              whileHover={{ scale: 1.02 }}
             >
               <h3 style={{ fontSize: '1.1rem', color: 'var(--accent)', marginBottom: '1.5rem', fontWeight: 600 }}>Município B (rio acima)</h3>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
@@ -146,13 +143,14 @@ export function NashEquilibriumSection() {
                   <div style={{ fontWeight: 600, color: '#34c759' }}>Lucro privado, custo social</div>
                 </div>
               </div>
-            </motion.div>
+            </LiquidGlassCard>
           </div>
         </div>
 
         {/* Conclusion Card Refined */}
-        <motion.div 
-          className="glass-card"
+        <LiquidGlassCard 
+          accentColor="#FFCC00"
+          interactive={true}
           style={{ 
             maxWidth: '800px', 
             margin: '2rem auto 0', 
@@ -160,7 +158,6 @@ export function NashEquilibriumSection() {
             display: 'flex',
             gap: '1.5rem',
             alignItems: 'center',
-            borderLeft: '4px solid #FFCC00'
           }}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -184,7 +181,7 @@ export function NashEquilibriumSection() {
             Quando A percebe que B não vai investir, a decisão racional de A também é não investir. 
             O sistema trava em um estado de poluição mútua, mesmo que a cooperação fosse melhor para todos.
           </div>
-        </motion.div>
+        </LiquidGlassCard>
       </div>
     </section>
   );

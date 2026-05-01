@@ -5,6 +5,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Scale, Waves, BarChart3 } from "lucide-react";
+import { LiquidGlassCard } from "../ui/LiquidGlassCard";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -64,7 +65,7 @@ export function ExternalitiesSection() {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   return (
-    <section ref={sectionRef} className="section" style={{ backgroundColor: 'var(--background-secondary)', overflow: 'hidden' }}>
+    <section ref={sectionRef} className="section" style={{ backgroundColor: 'var(--background-secondary)' }}>
       <div className="container">
         <motion.div 
           className="section-header"
@@ -88,8 +89,11 @@ export function ExternalitiesSection() {
           display: 'flex', 
           gap: '2rem', 
           overflowX: 'auto', 
-          paddingBottom: '3rem',
-          paddingTop: '1rem',
+          paddingBottom: '4rem',
+          paddingTop: '4rem',
+          margin: '-3rem -2rem -1rem',
+          paddingLeft: '2rem',
+          paddingRight: '2rem',
           msOverflowStyle: 'none',
           scrollbarWidth: 'none',
           cursor: 'grab'
@@ -97,63 +101,62 @@ export function ExternalitiesSection() {
           {marketFailures.map((failure, index) => (
             <motion.div
               key={failure.id}
-              className="glass-card"
-              style={{ 
-                minWidth: '350px', 
-                padding: '3rem',
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '1.5rem',
-                borderTop: `4px solid ${failure.accentColor}`,
-                '--hover-bg': `${failure.accentColor}10`,
-                '--hover-border': `${failure.accentColor}40`
-              } as React.CSSProperties}
               initial={{ opacity: 0, x: 50 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ delay: index * 0.1, duration: 0.6 }}
-              whileHover={{ y: -10, scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
+              style={{ minWidth: '350px', overflow: 'visible' }}
             >
-              <div style={{ 
-                width: '60px', 
-                height: '60px', 
-                borderRadius: '16px', 
-                backgroundColor: `${failure.accentColor}15`, 
-                display: 'flex', 
-                alignItems: 'center', 
-                justifyContent: 'center',
-                color: failure.accentColor,
-                marginBottom: '1rem'
-              }}>
-                {failure.icon}
-              </div>
+              <LiquidGlassCard
+                accentColor={failure.accentColor}
+                style={{ 
+                  padding: '3rem',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '1.5rem',
+                  height: '100%',
+                }}
+              >
+                <div style={{ 
+                  width: '60px', 
+                  height: '60px', 
+                  borderRadius: '16px', 
+                  backgroundColor: `${failure.accentColor}15`, 
+                  display: 'flex', 
+                  alignItems: 'center', 
+                  justifyContent: 'center',
+                  color: failure.accentColor,
+                  marginBottom: '1rem'
+                }}>
+                  {failure.icon}
+                </div>
 
-              <h3 style={{ fontSize: '1.5rem', fontWeight: 700, margin: 0 }}>
-                {failure.title}
-              </h3>
+                <h3 style={{ fontSize: '1.5rem', fontWeight: 700, margin: 0 }}>
+                  {failure.title}
+                </h3>
 
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                {failure.points.map((point, idx) => (
-                  <div key={idx} style={{ 
-                    display: 'flex', 
-                    gap: '0.75rem', 
-                    alignItems: 'flex-start',
-                    fontSize: '0.95rem',
-                    color: 'var(--foreground-muted)',
-                    lineHeight: 1.4
-                  }}>
-                    <div style={{ 
-                      width: '6px', 
-                      height: '6px', 
-                      borderRadius: '50%', 
-                      backgroundColor: failure.accentColor, 
-                      marginTop: '7px',
-                      flexShrink: 0
-                    }} />
-                    {point}
-                  </div>
-                ))}
-              </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                  {failure.points.map((point, idx) => (
+                    <div key={idx} style={{ 
+                      display: 'flex', 
+                      gap: '0.75rem', 
+                      alignItems: 'flex-start',
+                      fontSize: '0.95rem',
+                      color: 'var(--foreground-muted)',
+                      lineHeight: 1.4
+                    }}>
+                      <div style={{ 
+                        width: '6px', 
+                        height: '6px', 
+                        borderRadius: '50%', 
+                        backgroundColor: failure.accentColor, 
+                        marginTop: '7px',
+                        flexShrink: 0
+                      }} />
+                      {point}
+                    </div>
+                  ))}
+                </div>
+              </LiquidGlassCard>
             </motion.div>
           ))}
         </div>

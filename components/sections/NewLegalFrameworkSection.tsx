@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { CheckCircle2, AlertTriangle, ArrowRight, X, ShieldCheck } from 'lucide-react';
+import { LiquidGlassCard } from "../ui/LiquidGlassCard";
 
 export function NewLegalFrameworkSection() {
   const proposals = [
@@ -43,17 +44,15 @@ export function NewLegalFrameworkSection() {
           alignItems: 'start'
         }}>
           {/* Opportunities Column */}
-          <motion.div 
-            className="glass-card"
+          <LiquidGlassCard
+            accentColor="#34c759"
+            interactive={true}
             style={{ 
               padding: '3rem',
-              '--hover-bg': 'rgba(52, 199, 89, 0.08)',
-              '--hover-border': 'rgba(52, 199, 89, 0.3)'
             } as React.CSSProperties}
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
-            whileHover={{ scale: 1.01 }}
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '2.5rem' }}>
               <div 
@@ -82,20 +81,18 @@ export function NewLegalFrameworkSection() {
                 </div>
               ))}
             </div>
-          </motion.div>
+          </LiquidGlassCard>
 
           {/* Risks Column */}
-          <motion.div 
-            className="glass-card"
+          <LiquidGlassCard
+            accentColor="#ff9500"
+            interactive={true}
             style={{ 
               padding: '3rem',
-              '--hover-bg': 'rgba(255, 149, 0, 0.08)',
-              '--hover-border': 'rgba(255, 149, 0, 0.3)'
             } as React.CSSProperties}
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
-            whileHover={{ scale: 1.01 }}
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '2.5rem' }}>
               <div 
@@ -124,7 +121,7 @@ export function NewLegalFrameworkSection() {
                 </div>
               ))}
             </div>
-          </motion.div>
+          </LiquidGlassCard>
         </div>
       </div>
     </section>

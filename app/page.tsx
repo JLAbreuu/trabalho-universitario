@@ -4,21 +4,22 @@ import { useEffect } from "react";
 import AOS from "aos";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { HeroSection } from "@/components/HeroSection";
-import { SanitationIcebergHero } from "@/components/SanitationIcebergHero";
-import { LayeredJourneySection } from "@/components/LayeredJourneySection";
-import { VisibleProblemSection } from "@/components/VisibleProblemSection";
-import { StructuralInequalitySection } from "@/components/StructuralInequalitySection";
-import { SystemicLoopsSection } from "@/components/SystemicLoopsSection";
-import { NashEquilibriumSection } from "@/components/NashEquilibriumSection";
-import { IcebergModelDiveSection } from "@/components/IcebergModelDiveSection";
-import { NewLegalFrameworkSection } from "@/components/NewLegalFrameworkSection";
-import { StakeholdersGridSection } from "@/components/StakeholdersGridSection";
-import { EsgAgendaSection } from "@/components/EsgAgendaSection";
-import { ExternalitiesSection } from "@/components/ExternalitiesSection";
-import { ManifestoOutroSection } from "@/components/ManifestoOutroSection";
-import { AcademicFooterSection } from "@/components/AcademicFooterSection";
-import { AccessibilityControls } from "@/components/AccessibilityControls";
+import { HeroSection } from "@/components/sections/HeroSection";
+import { SanitationIcebergHero } from "@/components/sections/SanitationIcebergHero";
+import { LayeredJourneySection } from "@/components/sections/LayeredJourneySection";
+import { VisibleProblemSection } from "@/components/sections/VisibleProblemSection";
+import { StructuralInequalitySection } from "@/components/sections/StructuralInequalitySection";
+import { SystemicLoopsSection } from "@/components/sections/SystemicLoopsSection";
+import { NashEquilibriumSection } from "@/components/sections/NashEquilibriumSection";
+import { IcebergModelDiveSection } from "@/components/sections/IcebergModelDiveSection";
+import { NewLegalFrameworkSection } from "@/components/sections/NewLegalFrameworkSection";
+import { StakeholdersGridSection } from "@/components/sections/StakeholdersGridSection";
+import { EsgAgendaSection } from "@/components/sections/EsgAgendaSection";
+import { ExternalitiesSection } from "@/components/sections/ExternalitiesSection";
+import { ManifestoOutroSection } from "@/components/sections/ManifestoOutroSection";
+import { AcademicFooterSection } from "@/components/sections/AcademicFooterSection";
+import { AccessibilityControls } from "@/components/accessibility/AccessibilityControls";
+import { SectionNavigator } from "@/components/navigation/SectionNavigator";
 
 export default function Home() {
   useEffect(() => {
@@ -28,47 +29,70 @@ export default function Home() {
       easing: 'ease-out-cubic',
     });
 
-    // 2. Inicializar GSAP ScrollTrigger Globalmente
     gsap.registerPlugin(ScrollTrigger);
   }, []);
 
   return (
     <main style={{ overflow: 'hidden' }}>
-      <HeroSection />
-      <SanitationIcebergHero />
-      <LayeredJourneySection />
-      
-      <div id="problema-visivel">
+      <SectionNavigator />
+
+      <div data-section="intro">
+        <HeroSection />
+      </div>
+
+      <div data-section="jornada">
+        <LayeredJourneySection />
+      </div>
+
+      <div data-section="iceberg">
+        <SanitationIcebergHero />
+      </div>
+
+      <div data-section="problema-visivel" id="problema-visivel">
         <VisibleProblemSection />
       </div>
-      
-      <div id="desigualdade-estrutural">
+
+      <div data-section="desigualdade-estrutural" id="desigualdade-estrutural">
         <StructuralInequalitySection />
       </div>
-      
-      <ExternalitiesSection />
-      
-      <div id="como-o-sistema-funciona">
+
+      <div data-section="externalidades">
+        <ExternalitiesSection />
+      </div>
+
+      <div data-section="como-o-sistema-funciona" id="como-o-sistema-funciona">
         <NashEquilibriumSection />
       </div>
-      
-      <div id="causas-raiz">
+
+      <div data-section="causas-raiz" id="causas-raiz">
         <IcebergModelDiveSection />
       </div>
-      
-      <NewLegalFrameworkSection />
-      <StakeholdersGridSection />
-      
-      <div id="solucoes-sistemicas">
+
+      <div data-section="marco-legal">
+        <NewLegalFrameworkSection />
+      </div>
+
+      <div data-section="stakeholders">
+        <StakeholdersGridSection />
+      </div>
+
+      <div data-section="solucoes-sistemicas" id="solucoes-sistemicas">
         <EsgAgendaSection />
       </div>
-      
-      <SystemicLoopsSection />
-      <ManifestoOutroSection />
-      <AcademicFooterSection />
-      
+
+      <div data-section="loops-sistemicos">
+        <SystemicLoopsSection />
+      </div>
+
+      <div data-section="manifesto">
+        <ManifestoOutroSection />
+      </div>
+
+      <div data-section="referencias">
+        <AcademicFooterSection />
+      </div>
+
       <AccessibilityControls />
     </main>
   );
 }
-

@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Scale, ShieldCheck, Building2, Briefcase, Users, Leaf, ArrowUpRight } from 'lucide-react';
+import { LiquidGlassCard } from "../ui/LiquidGlassCard";
 
 const stakeholders = [
   {
@@ -87,22 +88,19 @@ export function StakeholdersGridSection() {
           gap: '1.5rem'
         }}>
           {stakeholders.map((s, index) => (
-            <motion.div
+            <LiquidGlassCard
               key={s.id}
-              className="glass-card"
+              accentColor={s.color}
+              interactive={true}
               style={{ 
                 padding: '2.5rem', 
                 display: 'flex', 
                 flexDirection: 'column', 
                 gap: '1.5rem',
-                '--hover-bg': `${s.color}10`,
-                '--hover-border': `${s.color}40`
               } as React.CSSProperties}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.05, duration: 0.5 }}
-              whileHover={{ y: -10, scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
             >
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                 <div style={{ 
@@ -141,7 +139,7 @@ export function StakeholdersGridSection() {
                   {s.description}
                 </p>
               </div>
-            </motion.div>
+            </LiquidGlassCard>
           ))}
         </div>
       </div>

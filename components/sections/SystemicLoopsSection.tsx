@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { RefreshCcw, ArrowRight, Activity, Ban, Wallet, Construction } from 'lucide-react';
+import { LiquidGlassCard } from "../ui/LiquidGlassCard";
 
 const loops = [
   {
@@ -68,22 +69,19 @@ export function SystemicLoopsSection() {
           margin: '0 auto'
         }}>
           {loops.map((loop, index) => (
-            <motion.div
+            <LiquidGlassCard
               key={loop.id}
-              className="glass-card"
+              accentColor={loop.color}
+              interactive={true}
               style={{ 
                 display: 'flex',
                 gap: '2.5rem',
                 padding: '2.5rem',
                 alignItems: 'center',
-                '--hover-bg': `${loop.color}10`,
-                '--hover-border': `${loop.color}40`
               } as React.CSSProperties}
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ delay: index * 0.1, duration: 0.6 }}
-              whileHover={{ scale: 1.01, x: 5 }}
-              whileTap={{ scale: 0.99 }}
             >
               <div style={{ 
                 display: 'flex',
@@ -158,7 +156,7 @@ export function SystemicLoopsSection() {
                   {loop.description}
                 </p>
               </div>
-            </motion.div>
+            </LiquidGlassCard>
           ))}
         </div>
       </div>
