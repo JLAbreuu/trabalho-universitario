@@ -5,6 +5,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ChevronDown } from "lucide-react";
+import { LiquidGlassCard } from "../ui/LiquidGlassCard";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -14,6 +15,7 @@ interface JourneyCard {
   subtitle: string;
   color: string;
   accentColor: string;
+  targetId: string;
 }
 
 const journeyCards: JourneyCard[] = [
@@ -23,6 +25,7 @@ const journeyCards: JourneyCard[] = [
     subtitle: "Números, realidade e o que o Censo 2022 revela",
     color: "green",
     accentColor: "#22c55e",
+    targetId: "problema-visivel"
   },
   {
     id: 2,
@@ -30,6 +33,7 @@ const journeyCards: JourneyCard[] = [
     subtitle: "Como a fragmentação municipal agrava a crise",
     color: "blue",
     accentColor: "#3b82f6",
+    targetId: "desigualdade-estrutural"
   },
   {
     id: 3,
@@ -37,6 +41,7 @@ const journeyCards: JourneyCard[] = [
     subtitle: "Coordenação, incentivos e falhas de mercado",
     color: "red",
     accentColor: "#ef4444",
+    targetId: "como-o-sistema-funciona"
   },
   {
     id: 4,
@@ -44,6 +49,7 @@ const journeyCards: JourneyCard[] = [
     subtitle: "Modelos mentais e estruturas que perpetuam a crise",
     color: "amber",
     accentColor: "#f59e0b",
+    targetId: "causas-raiz"
   },
   {
     id: 5,
@@ -51,11 +57,26 @@ const journeyCards: JourneyCard[] = [
     subtitle: "ESG, novo marco legal e oportunidades de mercado",
     color: "purple",
     accentColor: "#a855f7",
+    targetId: "solucoes-sistemicas"
   },
 ];
 
 export function LayeredJourneySection() {
   const sectionRef = useRef<HTMLDivElement>(null);
+
+  const scrollToSection = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      const headerOffset = 100;
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth"
+      });
+    }
+  };
 
   return (
     <section ref={sectionRef} className="section" style={{ backgroundColor: 'var(--background-primary)' }}>
@@ -88,39 +109,48 @@ export function LayeredJourneySection() {
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '3rem' }}>
             {journeyCards.map((card, index) => (
-              <motion.div
+              <LiquidGlassCard
                 key={card.id}
-                className="glass-card"
+                onClick={() => scrollToSection(card.targetId)}
+                accentColor={card.accentColor}
+                interactive={true}
+                className="spring-hover"
                 style={{ 
                   marginLeft: '50px',
                   padding: '2rem',
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '1.5rem'
-                }}
+                  gap: '1.5rem',
+                  cursor: 'pointer',
+                  position: 'relative',
+                } as React.CSSProperties}
                 initial={{ opacity: 0, x: 20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ delay: index * 0.1, duration: 0.6 }}
-                whileHover={{ x: 10, scale: 1.01 }}
-                whileTap={{ scale: 0.99 }}
               >
-                {/* Node indicator */}
+                {/* Node indicator (Bolinha Lateral) - Alinhada com a linha do tempo */}
                 <div style={{ 
                   position: 'absolute', 
-                  left: '-40px', 
+                  left: '-36px', 
+                  top: '50%',
+                  transform: 'translateY(-50%)',
                   width: '12px', 
                   height: '12px', 
                   borderRadius: '50%', 
                   backgroundColor: card.accentColor,
-                  boxShadow: `0 0 10px ${card.accentColor}`
+                  boxShadow: `0 0 15px ${card.accentColor}`,
+                  zIndex: 2
                 }} />
 
                 <div style={{ 
-                  fontSize: '1.5rem', 
-                  fontWeight: 800, 
-                  opacity: 0.2, 
-                  width: '40px',
-                  color: card.accentColor
+                  fontSize: '2rem', 
+                  fontWeight: 900, 
+                  color: card.accentColor,
+                  opacity: 1,
+                  textShadow: `0 0 12px ${card.accentColor}66`,
+                  width: '50px',
+                  fontFamily: 'Inter, sans-serif',
+                  flexShrink: 0
                 }}>
                   {String(card.id).padStart(2, '0')}
                 </div>
@@ -130,9 +160,8 @@ export function LayeredJourneySection() {
                   <p style={{ fontSize: '0.9rem', color: 'var(--foreground-muted)', margin: '0.25rem 0 0' }}>{card.subtitle}</p>
                 </div>
 
-                <ChevronDown size={20} style={{ transform: 'rotate(-90deg)', opacity: 0.3, color: card.accentColor }} />
-
-              </motion.div>
+                <ChevronDown size={20} style={{ transform: 'rotate(-90deg)', opacity: 0.8, color: card.accentColor }} />
+              </LiquidGlassCard>
             ))}
           </div>
         </div>

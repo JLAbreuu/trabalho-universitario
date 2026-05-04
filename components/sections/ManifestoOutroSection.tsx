@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { CheckCircle2 } from 'lucide-react';
+import { LiquidGlassCard } from "../ui/LiquidGlassCard";
 
 const solutions = [
   { id: "incentives", label: "Redesenhar incentivos", active: false },
@@ -73,31 +74,33 @@ export function ManifestoOutroSection() {
           {solutions.map((s, idx) => (
             <motion.div
               key={s.id}
-              className="glass-card"
-              style={{ 
-                padding: '0.75rem 1.5rem',
-                borderRadius: '100px',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.5rem',
-                border: s.active ? '1px solid var(--accent)' : '1px solid var(--border-glass)',
-                backgroundColor: s.active ? 'rgba(0, 113, 227, 0.08)' : 'var(--background-glass)'
-              }}
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.5 + (idx * 0.05), type: "spring" }}
-              whileHover={{ scale: 1.05, backgroundColor: 'rgba(0, 113, 227, 0.12)' }}
             >
-              {s.active && <CheckCircle2 size={16} style={{ color: 'var(--accent)' }} />}
-              <span style={{ 
-                fontSize: '0.9rem', 
-                fontWeight: 600,
-                color: s.active ? 'var(--accent)' : 'var(--foreground-muted)'
-              }}>
-                {s.label}
-              </span>
+              <LiquidGlassCard
+                accentColor="var(--accent)"
+                interactive={true}
+                style={{ 
+                  padding: '0.75rem 1.5rem',
+                  borderRadius: '100px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.5rem',
+                  border: s.active ? '1px solid var(--accent)' : '1px solid var(--border-glass)',
+                  backgroundColor: s.active ? 'rgba(0, 113, 227, 0.08)' : 'var(--background-glass)',
+                }}
+              >
+                {s.active && <CheckCircle2 size={16} style={{ color: 'var(--accent)' }} />}
+                <span style={{ 
+                  fontSize: '0.9rem', 
+                  fontWeight: 600,
+                  color: s.active ? 'var(--accent)' : 'var(--foreground-muted)'
+                }}>
+                  {s.label}
+                </span>
+              </LiquidGlassCard>
             </motion.div>
-
           ))}
         </div>
       </div>
