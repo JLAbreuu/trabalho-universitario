@@ -1,24 +1,15 @@
 "use client";
 
-import { useRef, useEffect } from "react";
+import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Lightbulb, Info } from 'lucide-react';
 import { LiquidGlassCard } from "../ui/LiquidGlassCard";
+import { useBreakpoint } from "@/hooks/useBreakpoint";
 
 export function NashEquilibriumSection() {
   const containerRef = useRef<HTMLDivElement>(null);
   const riverRef = useRef<SVGSVGElement>(null);
-
-  useEffect(() => {
-    gsap.to(".river-flow-path", {
-      strokeDashoffset: -20,
-      repeat: -1,
-      duration: 3,
-      ease: "none"
-    });
-  }, []);
+  const { isMobile, isTablet } = useBreakpoint();
 
   return (
     <section ref={containerRef} className="section" style={{ backgroundColor: 'var(--background-primary)' }}>
@@ -43,28 +34,30 @@ export function NashEquilibriumSection() {
         {/* Interactive Diagram Refined */}
         <div style={{ position: 'relative', padding: '4rem 0' }}>
           {/* River Background Refined */}
-          <div style={{ position: 'absolute', top: '50%', left: '0', width: '100%', transform: 'translateY(-50%)', opacity: 0.3, zIndex: 0 }}>
-            <svg ref={riverRef} width="100%" height="120" viewBox="0 0 1000 120" fill="none" preserveAspectRatio="none">
-              <path 
-                className="river-flow-path"
-                d="M 0,60 Q 250,20 500,60 T 1000,60" 
-                stroke="var(--accent)" 
-                strokeWidth="40"
-                strokeOpacity="0.1"
-                strokeDasharray="15 15"
-              />
-            </svg>
-            <div style={{ display: 'flex', justifyContent: 'space-between', padding: '0 2rem', fontSize: '0.8rem', color: 'var(--foreground-muted)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
-              <span>Rio Abaixo (Jusante)</span>
-              <span>Rio Acima (Montante)</span>
+          {!isMobile && (
+            <div style={{ position: 'absolute', top: '50%', left: '0', width: '100%', transform: 'translateY(-50%)', opacity: 0.3, zIndex: 0 }}>
+              <svg ref={riverRef} width="100%" height="120" viewBox="0 0 1000 120" fill="none" preserveAspectRatio="none">
+                <path 
+                  className="river-flow-path"
+                  d="M 0,60 Q 250,20 500,60 T 1000,60" 
+                  stroke="var(--accent)" 
+                  strokeWidth="40"
+                  strokeOpacity="0.1"
+                  strokeDasharray="15 15"
+                />
+              </svg>
+              <div style={{ display: 'flex', justifyContent: 'space-between', padding: '0 2rem', fontSize: '0.8rem', color: 'var(--foreground-muted)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
+                <span>Rio Abaixo (Jusante)</span>
+                <span>Rio Acima (Montante)</span>
+              </div>
             </div>
-          </div>
+          )}
 
           <div style={{ 
             position: 'relative',
             zIndex: 1,
             display: 'grid',
-            gridTemplateColumns: '1fr auto 1fr',
+            gridTemplateColumns: isMobile || isTablet ? '1fr' : '1fr auto 1fr',
             alignItems: 'center',
             gap: '2rem',
             maxWidth: '1000px',
@@ -110,7 +103,9 @@ export function NashEquilibriumSection() {
               fontSize: '1.5rem', 
               fontWeight: 800, 
               color: '#fff',
-              opacity: 0.3
+              opacity: 0.3,
+              textAlign: 'center',
+              transform: isMobile || isTablet ? 'rotate(90deg)' : 'none'
             }}>VS</div>
 
             {/* Município B - Rio Acima */}
@@ -156,6 +151,7 @@ export function NashEquilibriumSection() {
             margin: '2rem auto 0', 
             padding: '2rem',
             display: 'flex',
+            flexDirection: isMobile ? 'column' : 'row',
             gap: '1.5rem',
             alignItems: 'center',
           }}
@@ -176,7 +172,7 @@ export function NashEquilibriumSection() {
           >
             <Lightbulb size={24} />
           </div>
-          <div style={{ lineHeight: 1.6 }}>
+          <div style={{ lineHeight: 1.6, textAlign: isMobile ? 'center' : 'left' }}>
             <strong style={{ display: 'block', marginBottom: '0.25rem' }}>O Equilíbrio de Nash:</strong> 
             Quando A percebe que B não vai investir, a decisão racional de A também é não investir. 
             O sistema trava em um estado de poluição mútua, mesmo que a cooperação fosse melhor para todos.

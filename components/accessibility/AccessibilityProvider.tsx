@@ -18,6 +18,8 @@ interface AccessibilityContextType {
   setBoldText: (active: boolean) => void;
   presentationMode: boolean;
   setPresentationMode: (active: boolean) => void;
+  language: "pt" | "en";
+  setLanguage: (lang: "pt" | "en") => void;
 }
 
 const AccessibilityContext = createContext<AccessibilityContextType | undefined>(undefined);
@@ -29,6 +31,7 @@ export function AccessibilityProvider({ children }: { children: React.ReactNode 
   const [highContrast, setHighContrastState] = useState(false);
   const [boldText, setBoldTextState] = useState(false);
   const [presentationMode, setPresentationModeState] = useState(false);
+  const [language, setLanguageState] = useState<"pt" | "en">("pt");
 
   // Initialize from localStorage
   useEffect(() => {
@@ -38,6 +41,7 @@ export function AccessibilityProvider({ children }: { children: React.ReactNode 
     const savedContrast = localStorage.getItem("highContrast");
     const savedBold = localStorage.getItem("boldText");
     const savedPresentation = localStorage.getItem("presentationMode");
+    const savedLanguage = localStorage.getItem("language") as "pt" | "en";
 
     if (savedTheme) setThemeState(savedTheme);
     if (savedScale) setFontScaleState(parseFloat(savedScale));
@@ -45,6 +49,7 @@ export function AccessibilityProvider({ children }: { children: React.ReactNode 
     if (savedContrast) setHighContrastState(savedContrast === "true");
     if (savedBold) setBoldTextState(savedBold === "true");
     if (savedPresentation) setPresentationModeState(savedPresentation === "true");
+    if (savedLanguage) setLanguageState(savedLanguage);
   }, []);
 
   // Apply CSS / DOM attribute changes
@@ -105,12 +110,19 @@ export function AccessibilityProvider({ children }: { children: React.ReactNode 
     localStorage.setItem("presentationMode", presentationMode.toString());
   }, [presentationMode]);
 
+  // Persist language
+  useEffect(() => {
+    localStorage.setItem("language", language);
+    document.documentElement.lang = language;
+  }, [language]);
+
   const setTheme = (t: Theme) => setThemeState(t);
   const setFontScale = (s: number) => setFontScaleState(Math.min(Math.max(s, 0.8), 1.5));
   const setReducedMotion = (m: boolean) => setReducedMotionState(m);
   const setHighContrast = (c: boolean) => setHighContrastState(c);
   const setBoldText = (b: boolean) => setBoldTextState(b);
   const setPresentationMode = (p: boolean) => setPresentationModeState(p);
+  const setLanguage = (l: "pt" | "en") => setLanguageState(l);
 
   return (
     <AccessibilityContext.Provider value={{
@@ -120,6 +132,7 @@ export function AccessibilityProvider({ children }: { children: React.ReactNode 
       highContrast, setHighContrast,
       boldText, setBoldText,
       presentationMode, setPresentationMode,
+      language, setLanguage,
     }}>
       <MotionConfig reducedMotion={reducedMotion ? "always" : "never"}>
         {children}

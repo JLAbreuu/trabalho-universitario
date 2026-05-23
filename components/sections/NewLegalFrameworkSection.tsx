@@ -3,8 +3,10 @@
 import { motion } from "framer-motion";
 import { CheckCircle2, AlertTriangle, ArrowRight, X, ShieldCheck } from 'lucide-react';
 import { LiquidGlassCard } from "../ui/LiquidGlassCard";
+import { useBreakpoint } from "../../hooks/useBreakpoint";
 
 export function NewLegalFrameworkSection() {
+  const { isMobile } = useBreakpoint();
   const proposals = [
     { title: "Metas de Universalização", description: "99% de água potável e 90% de coleta/tratamento de esgoto até 2033." },
     { title: "Regionalização forçada", description: "Agrupamento de municípios para garantir viabilidade econômica." },
@@ -39,8 +41,8 @@ export function NewLegalFrameworkSection() {
 
         <div style={{ 
           display: 'grid', 
-          gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', 
-          gap: '2.5rem',
+          gridTemplateColumns: `repeat(auto-fit, minmax(${isMobile ? '280px' : '350px'}, 1fr))`, 
+          gap: isMobile ? '1.5rem' : '2.5rem',
           alignItems: 'start'
         }}>
           {/* Opportunities Column */}
@@ -48,7 +50,7 @@ export function NewLegalFrameworkSection() {
             accentColor="#34c759"
             interactive={true}
             style={{ 
-              padding: '3rem',
+              padding: isMobile ? '1.5rem' : '3rem',
             } as React.CSSProperties}
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -88,7 +90,7 @@ export function NewLegalFrameworkSection() {
             accentColor="#ff9500"
             interactive={true}
             style={{ 
-              padding: '3rem',
+              padding: isMobile ? '1.5rem' : '3rem',
             } as React.CSSProperties}
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}

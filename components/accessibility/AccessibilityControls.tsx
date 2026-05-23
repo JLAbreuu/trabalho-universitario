@@ -10,9 +10,11 @@ import {
   Wind, 
   X, 
   Accessibility as AccessibilityIcon,
-  Presentation
+  Presentation,
+  Languages
 } from "lucide-react";
 import { useAccessibility } from "@/components/accessibility/AccessibilityProvider";
+import { useTranslation } from "@/hooks/useTranslation";
 
 export function AccessibilityControls() {
   const [isOpen, setIsOpen] = useState(false);
@@ -21,8 +23,11 @@ export function AccessibilityControls() {
     reducedMotion, setReducedMotion,
     highContrast, setHighContrast,
     boldText, setBoldText,
-    presentationMode, setPresentationMode
+    presentationMode, setPresentationMode,
+    language, setLanguage
   } = useAccessibility();
+  
+  const { t } = useTranslation();
 
   return (
     <div style={{ position: 'fixed', bottom: '2rem', right: '2rem', zIndex: 1000, display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
@@ -46,7 +51,7 @@ export function AccessibilityControls() {
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <h3 style={{ fontSize: '1rem', margin: 0, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                 <AccessibilityIcon size={18} color="var(--accent)" />
-                Acessibilidade
+                {t.accessibility.title}
               </h3>
               <button 
                 onClick={() => setIsOpen(false)}
@@ -60,7 +65,7 @@ export function AccessibilityControls() {
             {/* Font Scale */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <span style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--foreground-muted)', textTransform: 'uppercase' }}>Tamanho do Texto</span>
+                <span style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--foreground-muted)', textTransform: 'uppercase' }}>{t.accessibility.textSize}</span>
                 <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--accent)' }}>{Math.round(fontScale * 100)}%</span>
               </div>
               <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
@@ -120,7 +125,7 @@ export function AccessibilityControls() {
                   }}>
                     <Wind size={16} />
                   </div>
-                  <span style={{ fontSize: '0.85rem', fontWeight: 500 }}>Reduzir Movimento</span>
+                  <span style={{ fontSize: '0.85rem', fontWeight: 500 }}>{t.accessibility.reduceMotion}</span>
                 </div>
                 <div 
                   style={{ 
@@ -155,7 +160,7 @@ export function AccessibilityControls() {
                   }}>
                     <Settings size={16} />
                   </div>
-                  <span style={{ fontSize: '0.85rem', fontWeight: 500 }}>Aumentar Contraste</span>
+                  <span style={{ fontSize: '0.85rem', fontWeight: 500 }}>{t.accessibility.increaseContrast}</span>
                 </div>
                 <div 
                   style={{ 
@@ -190,7 +195,7 @@ export function AccessibilityControls() {
                   }}>
                     <Type size={16} />
                   </div>
-                  <span style={{ fontSize: '0.85rem', fontWeight: 500 }}>Texto em Negrito</span>
+                  <span style={{ fontSize: '0.85rem', fontWeight: 500 }}>{t.accessibility.boldText}</span>
                 </div>
                 <div 
                   style={{ 
@@ -225,7 +230,7 @@ export function AccessibilityControls() {
                   }}>
                     <Presentation size={16} />
                   </div>
-                  <span style={{ fontSize: '0.85rem', fontWeight: 500 }}>Modo Apresentação</span>
+                  <span style={{ fontSize: '0.85rem', fontWeight: 500 }}>{t.accessibility.presentationMode}</span>
                 </div>
                 <div 
                   style={{ 
@@ -242,6 +247,43 @@ export function AccessibilityControls() {
                     transition={{ type: "spring", stiffness: 500, damping: 30 }}
                     style={{ width: '20px', height: '20px', background: 'white', borderRadius: '50%', boxShadow: '0 2px 4px rgba(0,0,0,0.2)' }}
                   />
+                </div>
+              </motion.div>
+
+              <motion.div 
+                whileHover={{ scale: 1.02, backgroundColor: 'rgba(128, 128, 128, 0.08)' }}
+                whileTap={{ scale: 0.98 }}
+                style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', cursor: 'pointer', padding: '0.5rem', borderRadius: '12px', margin: '-0.5rem' }}
+                onClick={() => setLanguage(language === "pt" ? "en" : "pt")}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                  <div className="liquid-glass" style={{ 
+                    width: '32px', height: '32px', borderRadius: '8px', 
+                    backgroundColor: language === "en" ? 'rgba(0, 113, 227, 0.15)' : 'transparent',
+                    color: language === "en" ? 'var(--accent)' : 'var(--foreground-muted)',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center'
+                  }}>
+                    <Languages size={16} />
+                  </div>
+                  <span style={{ fontSize: '0.85rem', fontWeight: 500 }}>{t.accessibility.language}</span>
+                </div>
+                <div 
+                  style={{ 
+                    width: '44px', height: '24px', borderRadius: '12px', 
+                    background: language === "en" ? 'var(--accent)' : 'rgba(128,128,128,0.2)',
+                    border: 'none', position: 'relative',
+                    padding: '2px', transition: 'background 0.3s ease',
+                    pointerEvents: 'none',
+                    boxShadow: language === "en" ? 'inset 0 2px 4px rgba(0,0,0,0.2)' : 'inset 0 2px 4px rgba(0,0,0,0.1)'
+                  }}
+                >
+                  <motion.div 
+                    animate={{ x: language === "en" ? 20 : 0 }}
+                    transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                    style={{ width: '20px', height: '20px', background: 'white', borderRadius: '50%', boxShadow: '0 2px 4px rgba(0,0,0,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.5rem', fontWeight: 'bold', color: 'black' }}
+                  >
+                    {language === "en" ? "EN" : "PT"}
+                  </motion.div>
                 </div>
               </motion.div>
             </div>

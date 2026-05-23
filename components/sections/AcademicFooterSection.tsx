@@ -5,11 +5,13 @@ import { ExternalLink, BookOpen, GraduationCap, Filter, ChevronDown, Check } fro
 import { motion, AnimatePresence } from 'framer-motion';
 import { LiquidGlassCard } from '../ui/LiquidGlassCard';
 import { references, getAllTags } from '@/lib/references';
+import { useBreakpoint } from '@/hooks/useBreakpoint';
 
 export const AcademicFooterSection = () => {
   const [activeTag, setActiveTag] = useState<string | null>(null);
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = React.useRef<HTMLDivElement>(null);
+  const { isMobile } = useBreakpoint();
 
   const tags = useMemo(() => getAllTags(), []);
 
@@ -58,7 +60,7 @@ export const AcademicFooterSection = () => {
             <span style={{ fontSize: '0.9rem', color: 'var(--muted)', fontWeight: 500 }}>Filtrar por tema:</span>
           </div>
           
-          <div ref={dropdownRef} style={{ position: 'relative', width: '300px' }}>
+          <div ref={dropdownRef} style={{ position: 'relative', width: isMobile ? '100%' : '300px', maxWidth: isMobile ? '400px' : 'none' }}>
             <motion.button
               onClick={() => setIsOpen(!isOpen)}
               style={{
@@ -176,7 +178,7 @@ export const AcademicFooterSection = () => {
           className="footer-grid" 
           style={{ 
             display: 'grid', 
-            gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', 
+            gridTemplateColumns: `repeat(auto-fill, minmax(${isMobile ? '280px' : '320px'}, 1fr))`,
             gap: '2rem',
             padding: '1rem',
             margin: '-1rem',

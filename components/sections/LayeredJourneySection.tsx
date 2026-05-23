@@ -6,6 +6,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ChevronDown } from "lucide-react";
 import { LiquidGlassCard } from "../ui/LiquidGlassCard";
+import { useBreakpoint } from "@/hooks/useBreakpoint";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -63,6 +64,7 @@ const journeyCards: JourneyCard[] = [
 
 export function LayeredJourneySection() {
   const sectionRef = useRef<HTMLDivElement>(null);
+  const { isMobile } = useBreakpoint();
 
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
@@ -95,11 +97,11 @@ export function LayeredJourneySection() {
           </p>
         </motion.div>
 
-        <div style={{ position: 'relative', maxWidth: '800px', margin: '4rem auto' }}>
-          {/* Timeline Line Refined */}
+        <div style={{ position: 'relative', maxWidth: '800px', margin: isMobile ? '2rem auto' : '4rem auto' }}>
+          {/* Timeline Line */}
           <div style={{ 
             position: 'absolute', 
-            left: '20px', 
+            left: isMobile ? '12px' : '20px', 
             top: '0', 
             bottom: '0', 
             width: '2px', 
@@ -107,7 +109,7 @@ export function LayeredJourneySection() {
             opacity: 0.3 
           }} />
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '3rem' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: isMobile ? '2rem' : '3rem' }}>
             {journeyCards.map((card, index) => (
               <LiquidGlassCard
                 key={card.id}
@@ -116,11 +118,11 @@ export function LayeredJourneySection() {
                 interactive={true}
                 className="spring-hover"
                 style={{ 
-                  marginLeft: '50px',
-                  padding: '2rem',
+                  marginLeft: isMobile ? '35px' : '50px',
+                  padding: isMobile ? '1.5rem' : '2rem',
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '1.5rem',
+                  gap: isMobile ? '1rem' : '1.5rem',
                   cursor: 'pointer',
                   position: 'relative',
                 } as React.CSSProperties}
@@ -128,14 +130,14 @@ export function LayeredJourneySection() {
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ delay: index * 0.1, duration: 0.6 }}
               >
-                {/* Node indicator (Bolinha Lateral) - Alinhada com a linha do tempo */}
+                {/* Node indicator */}
                 <div style={{ 
                   position: 'absolute', 
-                  left: '-36px', 
+                  left: isMobile ? '-27px' : '-36px', 
                   top: '50%',
                   transform: 'translateY(-50%)',
-                  width: '12px', 
-                  height: '12px', 
+                  width: isMobile ? '10px' : '12px', 
+                  height: isMobile ? '10px' : '12px', 
                   borderRadius: '50%', 
                   backgroundColor: card.accentColor,
                   boxShadow: `0 0 15px ${card.accentColor}`,
@@ -143,24 +145,24 @@ export function LayeredJourneySection() {
                 }} />
 
                 <div style={{ 
-                  fontSize: '2rem', 
+                  fontSize: isMobile ? '1.5rem' : '2rem', 
                   fontWeight: 900, 
                   color: card.accentColor,
                   opacity: 1,
                   textShadow: `0 0 12px ${card.accentColor}66`,
-                  width: '50px',
+                  width: isMobile ? '35px' : '50px',
                   fontFamily: 'Inter, sans-serif',
                   flexShrink: 0
                 }}>
                   {String(card.id).padStart(2, '0')}
                 </div>
 
-                <div style={{ flex: 1 }}>
-                  <h3 style={{ fontSize: '1.25rem', fontWeight: 700, margin: 0 }}>{card.title}</h3>
-                  <p style={{ fontSize: '0.9rem', color: 'var(--foreground-muted)', margin: '0.25rem 0 0' }}>{card.subtitle}</p>
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <h3 style={{ fontSize: isMobile ? '1rem' : '1.25rem', fontWeight: 700, margin: 0 }}>{card.title}</h3>
+                  <p style={{ fontSize: isMobile ? '0.8rem' : '0.9rem', color: 'var(--foreground-muted)', margin: '0.25rem 0 0' }}>{card.subtitle}</p>
                 </div>
 
-                <ChevronDown size={20} style={{ transform: 'rotate(-90deg)', opacity: 0.8, color: card.accentColor }} />
+                <ChevronDown size={isMobile ? 16 : 20} style={{ transform: 'rotate(-90deg)', opacity: 0.8, color: card.accentColor, flexShrink: 0 }} />
               </LiquidGlassCard>
             ))}
           </div>

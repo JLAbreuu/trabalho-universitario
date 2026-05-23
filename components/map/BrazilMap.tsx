@@ -179,6 +179,25 @@ export function BrazilMap({ activeRegion, onRegionHover }: Props) {
             onRegionHover(null);
             setTooltip(null);
           });
+
+          el.addEventListener("touchstart", (e) => {
+            e.preventDefault();
+            onRegionHover(regionId);
+            const rect = container.getBoundingClientRect();
+            const touch = (e as TouchEvent).touches[0];
+            setTooltip({
+              x: touch.clientX - rect.left,
+              y: touch.clientY - rect.top,
+              region: regionById[regionId],
+            });
+          }, { passive: false });
+
+          el.addEventListener("touchend", () => {
+            setTimeout(() => {
+              onRegionHover(null);
+              setTooltip(null);
+            }, 1200);
+          });
         });
 
         setSvgLoaded(true);

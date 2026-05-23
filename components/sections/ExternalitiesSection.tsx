@@ -6,6 +6,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Scale, Waves, BarChart3 } from "lucide-react";
 import { LiquidGlassCard } from "../ui/LiquidGlassCard";
+import { useBreakpoint } from "@/hooks/useBreakpoint";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -63,6 +64,7 @@ const marketFailures: MarketFailureCard[] = [
 export function ExternalitiesSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const { isMobile } = useBreakpoint();
 
   return (
     <section ref={sectionRef} className="section" style={{ backgroundColor: 'var(--background-secondary)' }}>
@@ -84,11 +86,12 @@ export function ExternalitiesSection() {
           </p>
         </motion.div>
 
-        {/* Horizontal Scroll Container Refined */}
-        <div style={{ 
-          display: 'flex', 
-          gap: '2rem', 
-          overflowX: 'auto', 
+        {/* Cards Container */}
+        <div style={{
+          display: 'flex',
+          flexDirection: isMobile ? 'column' : 'row',
+          gap: '2rem',
+          overflowX: isMobile ? 'visible' : 'auto',
           paddingBottom: '4rem',
           paddingTop: '4rem',
           margin: '-3rem -2rem -1rem',
@@ -96,15 +99,16 @@ export function ExternalitiesSection() {
           paddingRight: '2rem',
           msOverflowStyle: 'none',
           scrollbarWidth: 'none',
-          cursor: 'grab'
+          cursor: isMobile ? 'default' : 'grab',
+          scrollSnapType: isMobile ? 'none' : 'none'
         }} ref={scrollContainerRef}>
           {marketFailures.map((failure, index) => (
             <motion.div
               key={failure.id}
-              initial={{ opacity: 0, x: 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, x: isMobile ? 0 : 50, y: isMobile ? 20 : 0 }}
+              whileInView={{ opacity: 1, x: 0, y: 0 }}
               transition={{ delay: index * 0.1, duration: 0.6 }}
-              style={{ minWidth: '350px', overflow: 'visible' }}
+              style={{ minWidth: isMobile ? 'unset' : '350px', width: isMobile ? '100%' : 'auto', overflow: 'visible' }}
             >
               <LiquidGlassCard
                 accentColor={failure.accentColor}

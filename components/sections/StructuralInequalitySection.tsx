@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { MapPin, AlertTriangle, Briefcase } from "lucide-react";
 import { LiquidGlassCard } from "../ui/LiquidGlassCard";
+import { useBreakpoint } from "../../hooks/useBreakpoint";
 
 interface ContentCard {
   id: number;
@@ -56,6 +57,7 @@ const contentCards: ContentCard[] = [
 export function StructuralInequalitySection() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [hoveredId, setHoveredId] = useState<number | null>(null);
+  const { isMobile } = useBreakpoint();
 
   return (
     <section ref={sectionRef} className="section" style={{ backgroundColor: 'var(--background-secondary)', position: 'relative' }}>
@@ -83,7 +85,7 @@ export function StructuralInequalitySection() {
 
       <div className="container inequality-layout-grid">
         {/* Sticky Header Panel */}
-        <div style={{ position: 'sticky', top: '15vh', zIndex: 10 }}>
+        <div style={{ position: isMobile ? 'relative' : 'sticky', top: isMobile ? '0' : '15vh', zIndex: 10, marginBottom: isMobile ? '2rem' : '0' }}>
           <div className="pill" style={{ marginBottom: '1.5rem' }}>
             <span className="pill-text">02 — DESIGUALDADE ESTRUTURAL</span>
           </div>
@@ -99,8 +101,10 @@ export function StructuralInequalitySection() {
         <div className="inequality-cards-grid">
           {contentCards.map((card, index) => {
             const isHovered = hoveredId === card.id;
+            const isExpanded = isMobile || isHovered;
+            
             return (
-              <div key={card.id} style={{ position: 'relative', height: '180px' }}>
+              <div key={card.id} style={{ position: 'relative', height: isMobile ? 'auto' : '180px' }}>
                 <LiquidGlassCard
                   accentColor={card.accentColor}
                   isHovered={isHovered}
@@ -120,9 +124,9 @@ export function StructuralInequalitySection() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-50px" }}
                   animate={{
-                    scale: isHovered ? 1.05 : 1,
-                    y: isHovered ? -5 : 0,
-                    zIndex: isHovered ? 50 : 1,
+                    scale: isExpanded && !isMobile ? 1.05 : 1,
+                    y: isExpanded && !isMobile ? -5 : 0,
+                    zIndex: isExpanded ? 50 : 1,
                   }}
                   transition={{ 
                     scale: { type: 'spring', stiffness: 350, damping: 25 },
@@ -131,13 +135,13 @@ export function StructuralInequalitySection() {
                     default: { duration: 0.3 }
                   }}
                   style={{ 
-                    position: 'absolute',
+                    position: isMobile ? 'relative' : 'absolute',
                     top: 0,
                     left: 0,
                     width: '100%',
                     minHeight: '100%',
-                    padding: '2rem',
-                    cursor: 'pointer',
+                    padding: isMobile ? '1.5rem' : '2rem',
+                    cursor: isMobile ? 'default' : 'pointer',
                     display: 'flex',
                     flexDirection: 'column',
                   }}
@@ -164,9 +168,9 @@ export function StructuralInequalitySection() {
                   <motion.div
                     initial={false}
                     animate={{ 
-                      opacity: isHovered ? 1 : 0, 
-                      height: isHovered ? 'auto' : 0,
-                      marginTop: isHovered ? '1rem' : 0
+                      opacity: isExpanded ? 1 : 0, 
+                      height: isExpanded ? 'auto' : 0,
+                      marginTop: isExpanded ? '1rem' : 0
                     }}
                     transition={{ type: 'spring', stiffness: 350, damping: 25 }}
                     style={{ overflow: 'hidden' }}

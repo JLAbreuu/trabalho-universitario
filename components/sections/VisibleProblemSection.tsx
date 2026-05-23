@@ -7,6 +7,7 @@ import { Droplets, Building2, AlertTriangle, BarChart3, Leaf, Eye } from "lucide
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from "recharts";
 import { BrazilMap, BRAZIL_REGIONS } from "@/components/map/BrazilMap";
 import { LiquidGlassCard } from "@/components/ui/LiquidGlassCard";
+import { useBreakpoint } from "@/hooks/useBreakpoint";
 
 interface DataCard {
   value: string;
@@ -47,10 +48,13 @@ export function VisibleProblemSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [counters, setCounters] = useState({ a: 0, b: 0, c: 0, d: 0 });
   const [activeRegion, setActiveRegion] = useState<string | null>(null);
+  const [isMounted, setIsMounted] = useState(false);
+  const { isMobile, isTablet } = useBreakpoint();
 
   const activeData = BRAZIL_REGIONS.find((r) => r.id === activeRegion);
 
   useEffect(() => {
+    setIsMounted(true);
     const obj = { a: 0, b: 0, c: 0, d: 0 };
     gsap.to(obj, {
       a: 100, b: 33, c: 40, d: 15,
@@ -84,8 +88,8 @@ export function VisibleProblemSection() {
         {/* Data Cards */}
         <div style={{ 
           display: "grid", 
-          gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", 
-          gap: "2.5rem", 
+          gridTemplateColumns: `repeat(auto-fit, minmax(${isMobile ? '160px' : '240px'}, 1fr))`, 
+          gap: isMobile ? "1.5rem" : "2.5rem", 
           padding: "1rem",
           margin: "-1rem",
           marginBottom: "4rem" 
@@ -124,7 +128,7 @@ export function VisibleProblemSection() {
         </div>
 
         {/* Main Chart Card */}
-        <LiquidGlassCard interactive={false} style={{ padding: "3rem" }} initial={{ opacity: 0, scale: 0.98 }} whileInView={{ opacity: 1, scale: 1 }} transition={{ duration: 0.8 }}>
+        <LiquidGlassCard interactive={false} style={{ padding: isMobile ? "1.5rem" : "3rem" }} initial={{ opacity: 0, scale: 0.98 }} whileInView={{ opacity: 1, scale: 1 }} transition={{ duration: 0.8 }}>
 
           {/* Centered title block */}
           <div style={{ textAlign: "center", marginBottom: "2.5rem" }}>
@@ -142,12 +146,12 @@ export function VisibleProblemSection() {
           </div>
 
           {/* Two-column: map + chart */}
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1.5fr", gap: "3rem", alignItems: "start" }}>
+          <div style={{ display: "grid", gridTemplateColumns: isMobile || isTablet ? "1fr" : "1fr 1.5fr", gap: isMobile ? "2rem" : "3rem", alignItems: "start" }}>
 
             {/* LEFT — Brazil map + observation tab */}
             <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.7 }}>
               <p style={{ fontSize: "0.75rem", color: "var(--foreground-muted)", textAlign: "center", marginBottom: "0.75rem", letterSpacing: "0.06em", textTransform: "uppercase" }}>
-                Passe o cursor sobre a região
+                {isMobile ? "Toque na região" : "Passe o cursor sobre a região"}
               </p>
 
               <BrazilMap activeRegion={activeRegion} onRegionHover={setActiveRegion} />
@@ -216,44 +220,46 @@ export function VisibleProblemSection() {
 
             {/* RIGHT — Recharts bar chart */}
             <motion.div initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.7, delay: 0.15 }}>
-              <div style={{ width: "100%", height: "340px" }}>
-                <ResponsiveContainer width="100%" height="100%">
-                  <BarChart data={BRAZIL_REGIONS} layout="vertical" margin={{ top: 4, right: 24, left: 0, bottom: 4 }} barCategoryGap="28%">
-                    <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke="rgba(255,255,255,0.06)" />
-                    <XAxis
-                      type="number" domain={[0, 100]}
-                      tickFormatter={(v) => `${v}%`}
-                      tick={{ fill: "rgba(255,255,255,0.3)", fontSize: 11 }}
-                      axisLine={false} tickLine={false}
-                    />
-                    <YAxis
-                      type="category" dataKey="name" width={96}
-                      tick={{ fill: "rgba(255,255,255,0.7)", fontSize: 12, fontWeight: 600 }}
-                      axisLine={false} tickLine={false}
-                    />
-                    <Tooltip content={<CustomTooltip />} cursor={{ fill: "rgba(255,255,255,0.04)" }} />
-                    <Bar
-                      dataKey="percentage"
-                      radius={[0, 8, 8, 0]}
-                      maxBarSize={24}
-                      onMouseEnter={(data: any) => setActiveRegion(data.id)}
-                      onMouseLeave={() => setActiveRegion(null)}
-                    >
-                      {BRAZIL_REGIONS.map((r) => (
-                        <Cell
-                          key={r.id}
-                          fill={r.color}
-                          fillOpacity={activeRegion === null || activeRegion === r.id ? 1 : 0.2}
-                          style={{ transition: "fill-opacity 0.35s cubic-bezier(0.16,1,0.3,1)", cursor: "pointer" }}
-                        />
-                      ))}
-                    </Bar>
-                  </BarChart>
-                </ResponsiveContainer>
+              <div style={{ width: "100%", height: isMobile ? "250px" : "340px" }}>
+                {isMounted && (
+                  <ResponsiveContainer width="100%" height="100%">
+                    <BarChart data={BRAZIL_REGIONS} layout="vertical" margin={{ top: 4, right: 24, left: 0, bottom: 4 }} barCategoryGap="28%">
+                      <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke="rgba(255,255,255,0.06)" />
+                      <XAxis
+                        type="number" domain={[0, 100]}
+                        tickFormatter={(v) => `${v}%`}
+                        tick={{ fill: "rgba(255,255,255,0.3)", fontSize: 11 }}
+                        axisLine={false} tickLine={false}
+                      />
+                      <YAxis
+                        type="category" dataKey="name" width={isMobile ? 72 : 96}
+                        tick={{ fill: "rgba(255,255,255,0.7)", fontSize: isMobile ? 10 : 12, fontWeight: 600 }}
+                        axisLine={false} tickLine={false}
+                      />
+                      <Tooltip content={<CustomTooltip />} cursor={{ fill: "rgba(255,255,255,0.04)" }} />
+                      <Bar
+                        dataKey="percentage"
+                        radius={[0, 8, 8, 0]}
+                        maxBarSize={24}
+                        onMouseEnter={(data: any) => setActiveRegion(data.id)}
+                        onMouseLeave={() => setActiveRegion(null)}
+                      >
+                        {BRAZIL_REGIONS.map((r) => (
+                          <Cell
+                            key={r.id}
+                            fill={r.color}
+                            fillOpacity={activeRegion === null || activeRegion === r.id ? 1 : 0.2}
+                            style={{ transition: "fill-opacity 0.35s cubic-bezier(0.16,1,0.3,1)", cursor: "pointer" }}
+                          />
+                        ))}
+                      </Bar>
+                    </BarChart>
+                  </ResponsiveContainer>
+                )}
               </div>
 
               {/* Stats below chart */}
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem", marginTop: "1.5rem" }}>
+              <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: "1rem", marginTop: "1.5rem" }}>
                 {[
                   { label: "Diferença Sudeste × Norte", value: "64 p.p.", color: "#EAB308" },
                   { label: "Meta do Marco Legal 2033", value: "90%", color: "#9395D3" },

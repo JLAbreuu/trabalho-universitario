@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { Scale, ShieldCheck, Building2, Briefcase, Users, Leaf, ArrowUpRight } from 'lucide-react';
 import { LiquidGlassCard } from "../ui/LiquidGlassCard";
+import { useBreakpoint } from "@/hooks/useBreakpoint";
 
 const stakeholders = [
   {
@@ -62,6 +63,7 @@ const stakeholders = [
 ];
 
 export function StakeholdersGridSection() {
+  const { isMobile } = useBreakpoint();
   return (
     <section className="section" style={{ backgroundColor: 'var(--background-primary)' }}>
       <div className="container">
@@ -82,20 +84,20 @@ export function StakeholdersGridSection() {
           </p>
         </motion.div>
 
-        <div style={{ 
-          display: 'grid', 
-          gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', 
-          gap: '1.5rem'
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: `repeat(auto-fit, minmax(${isMobile ? '260px' : '280px'}, 1fr))`,
+          gap: isMobile ? '1rem' : '1.5rem'
         }}>
           {stakeholders.map((s, index) => (
             <LiquidGlassCard
               key={s.id}
               accentColor={s.color}
               interactive={true}
-              style={{ 
-                padding: '2.5rem', 
-                display: 'flex', 
-                flexDirection: 'column', 
+              style={{
+                padding: isMobile ? '1.5rem' : '2.5rem',
+                display: 'flex',
+                flexDirection: 'column',
                 gap: '1.5rem',
               } as React.CSSProperties}
               initial={{ opacity: 0, y: 20 }}

@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { CheckCircle2 } from 'lucide-react';
 import { LiquidGlassCard } from "../ui/LiquidGlassCard";
+import { useBreakpoint } from "../../hooks/useBreakpoint";
 
 const solutions = [
   { id: "incentives", label: "Redesenhar incentivos", active: false },
@@ -14,6 +15,7 @@ const solutions = [
 ];
 
 export function ManifestoOutroSection() {
+  const { isMobile } = useBreakpoint();
   return (
     <section className="section" style={{ backgroundColor: 'var(--background-secondary)', borderTop: '1px solid var(--border-glass)' }}>
       <div className="container" style={{ textAlign: 'center', minHeight: '60vh', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
@@ -35,7 +37,7 @@ export function ManifestoOutroSection() {
             fontWeight: 800, 
             letterSpacing: '-0.03em',
             lineHeight: 1.1,
-            marginBottom: '2rem'
+            marginBottom: isMobile ? '1.5rem' : '2rem'
           }}
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
@@ -49,8 +51,8 @@ export function ManifestoOutroSection() {
         <motion.p 
           style={{ 
             maxWidth: '800px', 
-            margin: '0 auto 4rem', 
-            fontSize: '1.25rem', 
+            margin: isMobile ? '0 auto 2.5rem' : '0 auto 4rem', 
+            fontSize: isMobile ? '1.1rem' : '1.25rem', 
             lineHeight: 1.6, 
             color: 'var(--foreground-muted)' 
           }}

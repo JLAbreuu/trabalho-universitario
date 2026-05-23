@@ -4,8 +4,10 @@ import { cloneElement } from "react";
 import { motion } from "framer-motion";
 import { Globe, Lightbulb, Check, ShieldCheck, Users, TreePine, Gavel } from 'lucide-react';
 import { LiquidGlassCard } from "../ui/LiquidGlassCard";
+import { useBreakpoint } from "../../hooks/useBreakpoint";
 
 export function EsgAgendaSection() {
+  const { isMobile } = useBreakpoint();
   const pillars = [
     {
       letter: "E",
@@ -143,14 +145,15 @@ export function EsgAgendaSection() {
           <LiquidGlassCard
             accentColor="#0071e3"
             style={{ 
-              padding: '3rem',
+              padding: isMobile ? '2rem' : '3rem',
               background: 'linear-gradient(135deg, rgba(0, 113, 227, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%)',
             }}
           >
             <div style={{ 
               display: 'flex', 
-              gap: '2.5rem',
-              alignItems: 'center',
+              flexDirection: isMobile ? 'column' : 'row',
+              gap: isMobile ? '1.5rem' : '2.5rem',
+              alignItems: isMobile ? 'flex-start' : 'center',
               maxWidth: '1000px',
               margin: '0 auto'
             }}>

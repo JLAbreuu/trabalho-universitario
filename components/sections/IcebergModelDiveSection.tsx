@@ -6,6 +6,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowDown, Layers, Activity, Database, Brain } from 'lucide-react';
 import { LiquidGlassCard } from "../ui/LiquidGlassCard";
+import { useBreakpoint } from "../../hooks/useBreakpoint";
 
 const icebergLayers = [
   {
@@ -44,6 +45,7 @@ const icebergLayers = [
 
 export function IcebergModelDiveSection() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const { isMobile } = useBreakpoint();
   
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -57,7 +59,8 @@ export function IcebergModelDiveSection() {
       <div className="container" style={{ position: 'relative' }}>
         
         {/* Depth Indicator Line */}
-        <div style={{ 
+        {!isMobile && (
+          <div style={{ 
           position: 'absolute', 
           left: '0', 
           top: '20%', 
@@ -89,17 +92,18 @@ export function IcebergModelDiveSection() {
           </span>
           <ArrowDown size={12} color="var(--accent)" />
         </div>
+        )}
 
-        <div style={{ paddingLeft: '4rem' }}>
+        <div style={{ paddingLeft: isMobile ? '0' : '4rem' }}>
           {/* Header */}
           <motion.div 
             className="section-header"
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
-            style={{ textAlign: 'left', margin: '0 0 4rem 0' }}
+            style={{ textAlign: 'left', margin: isMobile ? '0 0 2rem 0' : '0 0 4rem 0' }}
           >
-            <div className="pill" style={{ marginBottom: '1rem' }}>05 — MODELO ICEBERG</div>
+            {!isMobile && <div className="pill" style={{ marginBottom: '1rem' }}>05 — MODELO ICEBERG</div>}
             <h2 style={{ fontSize: 'clamp(2rem, 4vw, 3.5rem)' }}>
               O que vemos é <span className="text-gradient">só a ponta</span>
             </h2>
@@ -114,8 +118,9 @@ export function IcebergModelDiveSection() {
                 interactive={true}
                 style={{ 
                   display: 'flex', 
-                  gap: '1.5rem', 
-                  padding: '2rem',
+                  flexDirection: isMobile ? 'column' : 'row',
+                  gap: isMobile ? '1rem' : '1.5rem', 
+                  padding: isMobile ? '1.5rem' : '2rem',
                   alignItems: 'flex-start',
                 } as React.CSSProperties}
                 initial={{ opacity: 0, y: 30 }}
@@ -145,8 +150,8 @@ export function IcebergModelDiveSection() {
             accentColor="#0071e3"
             interactive={false}
             style={{ 
-              marginTop: '4rem', 
-              padding: '2.5rem', 
+              marginTop: isMobile ? '2rem' : '4rem', 
+              padding: isMobile ? '1.5rem' : '2.5rem', 
               textAlign: 'center', 
               maxWidth: '800px',
             }}
@@ -154,7 +159,7 @@ export function IcebergModelDiveSection() {
             whileInView={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.5, type: "spring" }}
           >
-            <p style={{ fontSize: '1.25rem', fontWeight: 500, fontStyle: 'italic' }}>
+            <p style={{ fontSize: isMobile ? '1.1rem' : '1.25rem', fontWeight: 500, fontStyle: 'italic' }}>
               "A pergunta certa não é <span style={{ color: 'var(--accent)', fontWeight: 700 }}>'por que não há dinheiro?'</span> — é 'por que os incentivos não alinham quem decide com quem paga o custo?'"
             </p>
           </LiquidGlassCard>

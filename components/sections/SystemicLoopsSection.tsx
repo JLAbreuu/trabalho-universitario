@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { RefreshCcw, ArrowRight, Activity, Ban, Wallet, Construction } from 'lucide-react';
 import { LiquidGlassCard } from "../ui/LiquidGlassCard";
+import { useBreakpoint } from "../../hooks/useBreakpoint";
 
 const loops = [
   {
@@ -40,6 +41,7 @@ const loops = [
 ];
 
 export function SystemicLoopsSection() {
+  const { isMobile } = useBreakpoint();
   return (
     <section className="section" style={{ backgroundColor: 'var(--background)' }}>
       <div className="container">
@@ -75,9 +77,10 @@ export function SystemicLoopsSection() {
               interactive={true}
               style={{ 
                 display: 'flex',
-                gap: '2.5rem',
-                padding: '2.5rem',
-                alignItems: 'center',
+                flexDirection: isMobile ? 'column' : 'row',
+                gap: isMobile ? '1.5rem' : '2.5rem',
+                padding: isMobile ? '1.5rem' : '2.5rem',
+                alignItems: isMobile ? 'flex-start' : 'center',
               } as React.CSSProperties}
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -85,7 +88,7 @@ export function SystemicLoopsSection() {
             >
               <div style={{ 
                 display: 'flex',
-                flexDirection: 'column',
+                flexDirection: isMobile ? 'row' : 'column',
                 alignItems: 'center',
                 gap: '1.5rem',
                 minWidth: '80px'
@@ -108,11 +111,13 @@ export function SystemicLoopsSection() {
                 </motion.div>
               </div>
 
-              <div style={{ flex: 1 }}>
+              <div style={{ flex: 1, width: '100%' }}>
                 <div style={{ 
                   display: 'flex', 
+                  flexDirection: isMobile ? 'column' : 'row',
                   justifyContent: 'space-between', 
-                  alignItems: 'center',
+                  alignItems: isMobile ? 'flex-start' : 'center',
+                  gap: isMobile ? '1rem' : '0',
                   marginBottom: '1.5rem'
                 }}>
                   <h3 style={{ margin: 0 }}>{loop.title}</h3>
