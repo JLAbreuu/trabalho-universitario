@@ -17,11 +17,29 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="pt-BR">
+    <html lang="pt-BR" suppressHydrationWarning>
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover" />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              try {
+                var theme = localStorage.getItem('theme');
+                if (theme && theme !== 'system') {
+                  document.documentElement.setAttribute('data-theme', theme);
+                }
+                var hc = localStorage.getItem('highContrast');
+                if (hc === 'true') document.documentElement.setAttribute('data-high-contrast', 'true');
+                var bt = localStorage.getItem('boldText');
+                if (bt === 'true') document.documentElement.setAttribute('data-bold-text', 'true');
+                var fs = localStorage.getItem('fontScale');
+                if (fs) document.documentElement.style.setProperty('--font-scale', fs);
+              } catch (e) {}
+            `,
+          }}
+        />
       </head>
-      <body>
+      <body suppressHydrationWarning>
         <AccessibilityProvider>
           {children}
         </AccessibilityProvider>
